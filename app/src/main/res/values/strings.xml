@@ -29,10 +29,15 @@
     <string name="config_res">结果类型</string>
     <string name="config_cloud">网盘类型</string>
     <string name="config_cloud_hint">不选 = 全部类型</string>
-    <string name="config_plugins">插件列表</string>
-    <string name="config_plugins_hint">逗号分隔，留空使用默认；数据源=插件 时生效</string>
-    <string name="config_channels">频道列表</string>
-    <string name="config_channels_hint">逗号分隔，留空使用默认；数据源=Telegram 时生效</string>
+    <string name="config_channels_title">TG频道</string>
+    <string name="config_plugins_title">搜索插件</string>
+    <string name="selected_format">已选 %1$d / %2$d</string>
+    <string name="select_all">全选</string>
+    <string name="select_none">清空</string>
+    <string name="expand">展开</string>
+    <string name="collapse">收起</string>
+    <string name="loading_lists">正在加载频道 / 插件列表…</string>
+    <string name="load_failed_retry">列表加载失败，点击重试</string>
     <string name="config_refresh">强制刷新（不使用缓存）</string>
 
     <string name="menu_refresh">刷新</string>

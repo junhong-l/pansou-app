@@ -233,6 +233,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
+                        android:tag="aliyun"
+                        android:text="阿里" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
                         android:tag="quark"
                         android:text="夸克" />
 
@@ -240,8 +247,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:tag="aliyun"
-                        android:text="阿里" />
+                        android:tag="guangya"
+                        android:text="光鸭" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:tag="tianyi"
+                        android:text="天翼" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:tag="115"
+                        android:text="115" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
@@ -261,64 +282,232 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:tag="115"
-                        android:text="115" />
+                        android:tag="mobile"
+                        android:text="移动" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:tag="123pan"
+                        android:tag="pikpak"
+                        android:text="PikPak" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:tag="123"
                         android:text="123" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:tag="magnet"
+                        android:text="磁力" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:tag="ed2k"
+                        android:text="电驴" />
                 </com.google.android.material.chip.ChipGroup>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <!-- TG频道：来自 /api/health，可勾选 -->
+                <LinearLayout
+                    android:id="@+id/headerChannels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    app:boxBackgroundMode="outline"
-                    app:boxBackgroundColor="#4DFFFFFF"
-                    app:boxCornerRadiusBottomEnd="14dp"
-                    app:boxCornerRadiusBottomStart="14dp"
-                    app:boxCornerRadiusTopEnd="14dp"
-                    app:boxCornerRadiusTopStart="14dp"
-                    app:boxStrokeColor="#8CFFFFFF"
-                    app:boxStrokeWidth="1dp"
-                    app:helperText="@string/config_plugins_hint">
+                    android:background="@drawable/bg_glass_row"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editPlugins"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/config_plugins"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textSize="15sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_weight="1"
+                        android:text="@string/config_channels_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                    <TextView
+                        android:id="@+id/countChannels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/toggleChannels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/expand"
+                        android:textColor="@color/badge_text"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bodyChannels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:boxBackgroundMode="outline"
-                    app:boxBackgroundColor="#4DFFFFFF"
-                    app:boxCornerRadiusBottomEnd="14dp"
-                    app:boxCornerRadiusBottomStart="14dp"
-                    app:boxCornerRadiusTopEnd="14dp"
-                    app:boxCornerRadiusTopStart="14dp"
-                    app:boxStrokeColor="#8CFFFFFF"
-                    app:boxStrokeWidth="1dp"
-                    app:helperText="@string/config_channels_hint">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editChannels"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/config_channels"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textSize="15sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btnAllChannels"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_glass_row"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:text="@string/select_all"
+                            android:textColor="#FF1565C0"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/btnNoneChannels"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_glass_row"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:text="@string/select_none"
+                            android:textColor="#FF1565C0"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipChannels"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        app:chipSpacingHorizontal="8dp" />
+                </LinearLayout>
+
+                <!-- 搜索插件：来自 /api/health，可勾选 -->
+                <LinearLayout
+                    android:id="@+id/headerPlugins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_glass_row"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/config_plugins_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/countPlugins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/togglePlugins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/expand"
+                        android:textColor="@color/badge_text"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bodyPlugins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btnAllPlugins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_glass_row"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:text="@string/select_all"
+                            android:textColor="#FF1565C0"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/btnNonePlugins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_glass_row"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:text="@string/select_none"
+                            android:textColor="#FF1565C0"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipPlugins"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        app:chipSpacingHorizontal="8dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/loadStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/loading_lists"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
 
                 <Switch
                     android:id="@+id/switchRefresh"

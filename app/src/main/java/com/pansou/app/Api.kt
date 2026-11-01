@@ -26,7 +26,8 @@ data class CloudItem(
 object Api {
 
     private const val TYPE_LABELS =
-        "quark=夸克,aliyun=阿里云盘,baidu=百度网盘,xunlei=迅雷,uc=UC网盘,115=115网盘,123pan=123云盘,p115=115网盘"
+        "baidu=百度,aliyun=阿里,quark=夸克,guangya=光鸭,tianyi=天翼,115=115,xunlei=迅雷,uc=UC," +
+            "mobile=移动,pikpak=PikPak,123=123,magnet=磁力,ed2k=电驴,other=其他"
 
     fun typeLabel(type: String): String {
         TYPE_LABELS.split(",").forEach {
@@ -241,5 +242,40 @@ object Api {
         } else {
             iso
         }
+    }
+
+    // ==================== 服务器信息（频道 / 插件列表） ====================
+
+    /** 服务器可用的搜索来源列表（/api/health） */
+    data class ServerInfo(val channels: List<String>, val plugins: List<String>)
+
+    /** 拉取 /api/health 获取可配置的 TG 频道与搜索插件列表 */
+    fun fetchServerInfo(baseUrl: String): ServerInfo {
+        val conn = URL(baseUrl.trimEnd('/') + "/api/health").openConnection() as HttpURLConnection
+        conn.connectTimeout = 10000
+        conn.readTimeout = 15000
+        conn.requestMethod = "GET"
+        try {
+            val code = conn.responseCode
+            if (code != HttpURLConnection.HTTP_OK) {
+                throw IllegalStateException("服务器返回 HTTP $code")
+            }
+            val body = conn.inputStream.bufferedReader(Charsets.UTF_8).readText()
+            return parseHealth(body)
+        } finally {
+            conn.disconnect()
+        }
+    }
+
+    /** 解析 /api/health 响应（独立出来便于单元测试） */
+    fun parseHealth(body: String): ServerInfo {
+        val json = JSONObject(body)
+        fun names(key: String): List<String> {
+            val arr = json.optJSONArray(key) ?: return emptyList()
+            return (0 until arr.length()).mapNotNull { i ->
+                arr.optString(i).takeIf { it.isNotBlank() }
+            }
+        }
+        return ServerInfo(channels = names("channels"), plugins = names("plugins"))
     }
 }

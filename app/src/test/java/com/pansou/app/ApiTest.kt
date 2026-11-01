@@ -45,8 +45,19 @@ class ApiTest {
     @Test
     fun `type label mapping`() {
         assertEquals("夸克", Api.typeLabel("quark"))
-        assertEquals("阿里云盘", Api.typeLabel("aliyun"))
+        assertEquals("阿里", Api.typeLabel("aliyun"))
+        assertEquals("光鸭", Api.typeLabel("guangya"))
+        assertEquals("电驴", Api.typeLabel("ed2k"))
         assertEquals("unknown", Api.typeLabel("unknown"))
+    }
+
+    @Test
+    fun `parse health server info`() {
+        val sample = """{"status":"ok","channels_count":2,"plugin_count":2,
+            "channels":["ch1","ch2"],"plugins":["p1","p2"],"auth_enabled":false}"""
+        val info = Api.parseHealth(sample)
+        assertEquals(listOf("ch1", "ch2"), info.channels)
+        assertEquals(listOf("p1", "p2"), info.plugins)
     }
 
     @Test
