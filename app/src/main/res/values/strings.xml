@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PanSou 盘搜</string>
+    <string name="search_hint">搜索资源、电影、音乐、软件…</string>
+    <string name="search">搜索</string>
+    <string name="empty_text">输入关键词开始搜索</string>
+    <string name="searching">正在搜索…</string>
+    <string name="searching_hint">聚合多源搜索，可能需要几十秒</string>
+    <string name="no_result">没有找到相关资源，换个关键词试试</string>
+    <string name="result_count">共 %1$d 条结果</string>
+    <string name="retry">重试</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_server">后端服务器</string>
+    <string name="settings_server_url">服务器地址</string>
+    <string name="settings_hint">例如 http://192.168.9.110:1080/</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_test">测试连接</string>
+    <string name="settings_reset">恢复默认</string>
+    <string name="settings_saved">已保存</string>
+    <string name="settings_invalid_url">地址格式不正确，需以 http:// 或 https:// 开头</string>
+    <string name="test_ok">连接成功（HTTP %1$d）</string>
+    <string name="test_fail">连接失败：%1$s</string>
+    <string name="testing">正在测试…</string>
+
+    <!-- 搜索配置（与网页版配置页一致） -->
+    <string name="config_title">搜索配置</string>
+    <string name="config_src">数据源</string>
+    <string name="config_res">结果类型</string>
+    <string name="config_cloud">网盘类型</string>
+    <string name="config_cloud_hint">不选 = 全部类型</string>
+    <string name="config_plugins">插件列表</string>
+    <string name="config_plugins_hint">逗号分隔，留空使用默认；数据源=插件 时生效</string>
+    <string name="config_channels">频道列表</string>
+    <string name="config_channels_hint">逗号分隔，留空使用默认；数据源=Telegram 时生效</string>
+    <string name="config_refresh">强制刷新（不使用缓存）</string>
+
+    <string name="menu_refresh">刷新</string>
+    <string name="menu_settings">设置</string>
+    <string name="action_copy_url">复制链接</string>
+    <string name="action_copy_password">复制提取码</string>
+    <string name="action_open">浏览器打开</string>
+    <string name="action_share">分享</string>
+    <string name="copied">已复制</string>
+    <string name="password_format">提取码：%1$s</string>
+    <string name="input_keyword">请先输入关键词</string>
+    <string name="clear_desc">清空并返回主页</string>
+    <string name="check_title">链接检测</string>
+    <string name="auto_check_title">自动检测有效链接</string>
+    <string name="auto_check_desc">搜索完成后自动批量检测所有结果，仅保留有效链接，失效链接自动移除；通过检测的资源会标注「有效」徽标。</string>
+    <string name="auto_check_switch">自动检测</string>
+    <string name="checking_progress">检测中 %1$d/%2$d…</string>
+    <string name="removed_invalid">已移除 %1$d 条无效链接</string>
+    <string name="all_valid">全部链接有效</string>
+    <string name="valid_badge">✓ 有效</string>
+    <string name="about_title">关于</string>
+    <string name="about_desc">PanSou 网盘资源搜索客户端（原生 Android），直连后端 API 搜索 TG 频道与插件资源，支持自定义服务器地址。</string>
+    <string name="about_version_format">版本 %1$s（Build %2$d）</string>
+    <string name="about_version_short">v%1$s</string>
+    <string name="about_backend_format">当前后端：%1$s</string>
+    <string name="about_project">项目主页：github.com/fish2018/pansou-web</string>
+</resources>

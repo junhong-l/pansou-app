@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 液态玻璃：弹窗面板 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#F2FFFFFF"
+        android:endColor="#DCFFFFFF" />
+    <corners android:radius="24dp" />
+    <stroke
+        android:width="1.2dp"
+        android:color="#C7FFFFFF" />
+</shape>

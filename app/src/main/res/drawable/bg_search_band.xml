@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 搜索区底色：从品牌蓝渐隐到页面背景，衬托玻璃质感 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#2E8BE0"
+        android:endColor="#F4F6F9" />
+</shape>
