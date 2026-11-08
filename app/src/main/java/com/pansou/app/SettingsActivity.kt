@@ -19,7 +19,6 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var chipRes: ChipGroup
     private lateinit var chipCloud: ChipGroup
     private lateinit var switchRefresh: android.widget.Switch
-    private lateinit var switchAutoCheck: android.widget.Switch
 
     // 频道 / 插件动态勾选（列表来自 /api/health）
     private lateinit var chipChannels: ChipGroup
@@ -45,7 +44,6 @@ class SettingsActivity : AppCompatActivity() {
         chipRes = findViewById(R.id.chipRes)
         chipCloud = findViewById(R.id.chipCloud)
         switchRefresh = findViewById(R.id.switchRefresh)
-        switchAutoCheck = findViewById(R.id.switchAutoCheck)
 
         chipChannels = findViewById(R.id.chipChannels)
         chipPlugins = findViewById(R.id.chipPlugins)
@@ -170,7 +168,6 @@ class SettingsActivity : AppCompatActivity() {
             chip.isChecked = if (cfg.cloudTypes.isEmpty()) true else tag(chip) in cloudSet
         }
         switchRefresh.isChecked = cfg.refresh
-        switchAutoCheck.isChecked = Prefs.getAutoCheck(this)
         updateCounts()
     }
 
@@ -226,7 +223,6 @@ class SettingsActivity : AppCompatActivity() {
                 refresh = switchRefresh.isChecked
             )
         )
-        Prefs.setAutoCheck(this, switchAutoCheck.isChecked)
         Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show()
         setResult(RESULT_OK)
         finish()

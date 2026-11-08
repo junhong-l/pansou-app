@@ -24,7 +24,7 @@ object Prefs {
     private const val KEY_PLUGINS = "plugins"
     private const val KEY_CHANNELS = "channels"
     private const val KEY_REFRESH = "refresh"
-    private const val KEY_AUTO_CHECK = "auto_check"
+    private const val KEY_HISTORY = "search_history"
 
     /** 默认后端地址，可在设置中修改 */
     const val DEFAULT_SERVER_URL = "http://192.168.9.110:1080/"
@@ -64,12 +64,21 @@ object Prefs {
             .apply()
     }
 
-    /** 搜索完成后自动批量检测并过滤失效链接（与网页版「自动检测」一致） */
-    fun getAutoCheck(context: Context): Boolean =
-        sp(context).getBoolean(KEY_AUTO_CHECK, true)
+    // ==================== 搜索历史 ====================
 
-    fun setAutoCheck(context: Context, enabled: Boolean) {
-        sp(context).edit().putBoolean(KEY_AUTO_CHECK, enabled).apply()
+    fun getHistory(context: Context): List<String> =
+        sp(context).getString(KEY_HISTORY, "")
+            ?.split("\n")?.filter { it.isNotBlank() } ?: emptyList()
+
+    fun addHistory(context: Context, keyword: String) {
+        val kw = keyword.trim()
+        if (kw.isEmpty()) return
+        val list = (listOf(kw) + getHistory(context).filter { it != kw }).take(20)
+        sp(context).edit().putString(KEY_HISTORY, list.joinToString("\n")).apply()
+    }
+
+    fun clearHistory(context: Context) {
+        sp(context).edit().remove(KEY_HISTORY).apply()
     }
 
     /**

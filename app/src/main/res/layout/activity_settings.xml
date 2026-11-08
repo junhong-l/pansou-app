@@ -519,50 +519,6 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-            <!-- ============ 链接检测（自动过滤失效链接） ============ -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/check_title"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_glass_card"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/auto_check_title"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/auto_check_desc"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-
-                <Switch
-                    android:id="@+id/switchAutoCheck"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/auto_check_switch"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
             <Button
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"

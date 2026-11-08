@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var errorState: LinearLayout
     private lateinit var errorDetail: TextView
     private lateinit var loadingState: LinearLayout
+    private lateinit var historySection: LinearLayout
+    private lateinit var historyChips: ChipGroup
 
     private val adapter = ResultAdapter { item -> showItemActions(item) }
     private val executor = Executors.newSingleThreadExecutor()
@@ -79,12 +81,19 @@ class MainActivity : AppCompatActivity() {
         errorState = findViewById(R.id.errorState)
         errorDetail = findViewById(R.id.errorDetail)
         loadingState = findViewById(R.id.loadingState)
+        historySection = findViewById(R.id.historySection)
+        historyChips = findViewById(R.id.historyChips)
 
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
 
         findViewById<View>(R.id.btnSearch).setOnClickListener { doSearch(editQuery.text.toString()) }
         findViewById<View>(R.id.btnRetry).setOnClickListener { doSearch(currentQuery) }
+        findViewById<View>(R.id.btnValidCheck).setOnClickListener { runValidCheck() }
+        findViewById<View>(R.id.btnClearHistory).setOnClickListener {
+            Prefs.clearHistory(this)
+            refreshHistory()
+        }
         editQuery.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 doSearch(editQuery.text.toString())
@@ -108,6 +117,25 @@ class MainActivity : AppCompatActivity() {
             }
         })
         clearIcon.setOnClickListener { goHome() }
+
+        refreshHistory()
+    }
+
+    /** 刷新主页搜索历史区块 */
+    private fun refreshHistory() {
+        val history = Prefs.getHistory(this)
+        historySection.visibility = if (history.isEmpty()) View.GONE else View.VISIBLE
+        historyChips.removeAllViews()
+        history.forEach { kw ->
+            val chip = Chip(this).apply {
+                text = kw
+                setOnClickListener {
+                    editQuery.setText(kw)
+                    doSearch(kw)
+                }
+            }
+            historyChips.addView(chip)
+        }
     }
 
     /** 清空搜索，返回初始主页 */
@@ -120,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         editQuery.setText("")
         showState()
         hideKeyboard()
+        refreshHistory()
     }
 
     private fun doSearch(raw: String, forceRefresh: Boolean = false) {
@@ -129,6 +158,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         currentQuery = kw
+        Prefs.addHistory(this, kw)
         inSearch = true
         hideKeyboard()
         showState(loading = true)
@@ -165,16 +195,14 @@ class MainActivity : AppCompatActivity() {
         textCount.text = getString(R.string.result_count, items.size)
         adapter.submit(items)
         showState(results = true)
-        // 自动检测：仅保留有效链接（与网页版「自动检测」行为一致）
-        if (Prefs.getAutoCheck(this)) runValidCheck()
     }
 
-    /** 按网盘类型生成筛选芯片 */
+    /** 按网盘类型生成筛选芯片（保持当前选中类型） */
     private fun buildChips(counts: Map<String, Int>) {
         chipGroup.removeAllViews()
-        addChip("全部", allResults.size, TYPE_ALL, true)
+        addChip("全部", allResults.size, TYPE_ALL, currentFilter == TYPE_ALL)
         counts.entries.sortedByDescending { it.value }.forEach { (type, count) ->
-            addChip(Api.typeLabel(type), count, type, false)
+            addChip(Api.typeLabel(type), count, type, currentFilter == type)
         }
     }
 
@@ -200,8 +228,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 批量检测当前结果的有效性，移除失效链接（web 版「检测」的等价功能）。
-     * 每 20 条一批调用 /api/check/links，state=bad 的从列表移除。
+     * 手动批量检测：只检测当前选中类型的结果（adapter.currentItems() 即筛选后列表）。
+     * 每 20 条一批调用 /api/check/links，失效项从列表移除，有效项打徽标。
      */
     private fun runValidCheck() {
         val targets = adapter.currentItems()
@@ -245,12 +273,13 @@ class MainActivity : AppCompatActivity() {
 
             mainHandler.post {
                 checking = false
-                // 移除失效链接；检测通过的打「有效」标志
+                // 移除失效链接；检测通过的打「有效」标志（保持当前类型筛选）
                 allResults = allResults
                     .filterNot { (it.type to it.url) in removedKeys }
                     .map { if ((it.type to it.url) in validKeys) it.copy(valid = true) else it }
-                currentFilter = TYPE_ALL
-                adapter.submit(allResults)
+                val visible = if (currentFilter == TYPE_ALL) allResults
+                else allResults.filter { it.type == currentFilter }
+                adapter.submit(visible)
                 buildChips(allResults.groupingBy { it.type }.eachCount())
                 textCount.text = if (removedKeys.isEmpty()) {
                     getString(R.string.all_valid)
